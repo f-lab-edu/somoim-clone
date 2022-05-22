@@ -1,6 +1,7 @@
 package com.somoim.service;
 
 import com.somoim.dto.User;
+import com.somoim.exception.DuplicateEmailException;
 import com.somoim.mapper.UserMapper;
 import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class UserService {
     @Transactional
     public void insertUser(User user) {
         if(checkEmail(user.getEmail())) {
-            throw new DuplicateRequestException("This email already registered.");
+            throw new DuplicateEmailException("This email already registered.");
         }
         user.setPassword(passwordEncrypt.hashPassword(user.getPassword()));
         user.setCreateAt(simpleDateFormat.format(time));
