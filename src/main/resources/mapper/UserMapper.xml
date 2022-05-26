@@ -11,4 +11,7 @@
         SELECT EXISTS
                    (SELECT email FROM user WHERE email = #{email})
     </select>
+    <select id="selectMember" resultType="com.somoim.dto.User">
+        SELECT * FROM user WHERE email = #{email}
+    </select>
 </mapper>

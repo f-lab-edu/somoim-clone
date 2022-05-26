@@ -3,7 +3,6 @@ package com.somoim.service;
 import com.somoim.dto.User;
 import com.somoim.exception.DuplicateEmailException;
 import com.somoim.mapper.UserMapper;
-import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,5 +35,9 @@ public class UserService {
     @Transactional(readOnly = true)
     public boolean checkEmail(String email) {
         return userMapper.isExistsEmail(email);
+    }
+
+    public User selectMember(String email) {
+        return userMapper.selectMember(email);
     }
 }
