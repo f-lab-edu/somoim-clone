@@ -1,5 +1,6 @@
 package com.somoim.dto;
 
+import com.somoim.util.PasswordEncrypt;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,5 +24,10 @@ public class User {
     private String createAt;
     private String modifyAt;
     private boolean disband;
+
+    public void setPassword(String password) {
+        PasswordEncrypt passwordEncrypt = new PasswordEncrypt();
+        this.password = passwordEncrypt.hashPassword(password);
+    }
 }
 

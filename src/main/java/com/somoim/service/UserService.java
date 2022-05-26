@@ -6,7 +6,6 @@ import com.somoim.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.somoim.util.PasswordEncrypt;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,14 +17,12 @@ public class UserService {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:sss");
 
     private final UserMapper userMapper;
-    private final PasswordEncrypt passwordEncrypt;
 
     @Transactional
     public void insertUser(User user) {
         if(checkEmail(user.getEmail())) {
             throw new DuplicateEmailException("This email already registered.");
         }
-        user.setPassword(passwordEncrypt.hashPassword(user.getPassword()));
         user.setCreateAt(simpleDateFormat.format(time));
         user.setModifyAt(user.getCreateAt());
         user.setDisband(false);
