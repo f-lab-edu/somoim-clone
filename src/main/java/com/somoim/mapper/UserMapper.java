@@ -1,11 +1,11 @@
 package com.somoim.mapper;
 
-import com.somoim.dto.User;
+import com.somoim.model.dto.SignUpUser;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserMapper {
-    void createUser(User user);
+    void createUser(SignUpUser user);
     boolean isExistsEmail(String email);
-    User selectMember(String email);
+    SignUpUser selectUser(String email);
 }

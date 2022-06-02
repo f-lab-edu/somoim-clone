@@ -1,6 +1,6 @@
 package com.somoim.controller;
 
-import com.somoim.dto.User;
+import com.somoim.model.dto.SignUpUser;
 import com.somoim.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signUp")
-    public void createUser(@Valid @RequestBody User user) {
+    public void createUser(@Valid @RequestBody SignUpUser user) {
         userService.insertUser(user);
     }
 }
