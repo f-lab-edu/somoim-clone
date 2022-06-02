@@ -3,8 +3,9 @@ package com.somoim.service;
 import com.somoim.model.dto.SignUpUser;
 import com.somoim.exception.DuplicateEmailException;
 import com.somoim.mapper.UserMapper;
-import com.somoim.util.PasswordEncrypt;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,14 +19,17 @@ public class UserService {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:sss");
 
     private final UserMapper userMapper;
-    private final PasswordEncrypt passwordEncrypt = new PasswordEncrypt();
+    private final PasswordEncoder passwordEncorder = new BCryptPasswordEncoder();
 
     @Transactional
     public void insertUser(SignUpUser user) {
         if(checkEmail(user.getEmail())) {
             throw new DuplicateEmailException("This email already registered.");
         }
-        SignUpUser newUser = SignUpUser.createUser(user.getEmail(), passwordEncrypt.hashPassword(user.getPassword()), simpleDateFormat.format(time));
+        SignUpUser newUser = SignUpUser.createUser(user.getEmail(),
+                passwordEncorder.encode(user.getPassword()),
+                simpleDateFormat.format(time));
+
         userMapper.createUser(newUser);
     }
 
