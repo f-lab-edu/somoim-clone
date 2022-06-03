@@ -1,43 +1,65 @@
 package com.somoim.service;
 
+import com.somoim.mapper.UserMapper;
+import com.somoim.model.dao.User;
 import com.somoim.model.dto.SignUpUser;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
-@SpringBootTest
+import static org.junit.jupiter.api.Assertions.*;
+import static reactor.core.publisher.Mono.when;
+
+//@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
-    @Autowired
+    @Mock
+    PasswordEncoder passwordEncorder;
+
+    @Mock
+    UserMapper userMapper;
+
+    @InjectMocks
     UserService userService;
 
-    @Test
-    @Transactional
-    void insertUser() {
-        // given
-        SignUpUser newUser = new SignUpUser();
-        newUser.setEmail("email123@email.com");
-        newUser.setPassword("1234");
-        // when
-        userService.insertUser(newUser);
-        // then
-        assertEquals(newUser.getEmail(), userService.selectUser("email123@email.com").getEmail());
+    SignUpUser signUpUser;
+
+    @BeforeEach
+    void setUp () {
+        signUpUser = new SignUpUser();
+        signUpUser.setEmail("emailTest@email.com");
+        signUpUser.setPassword("emailTest@email.com");
+        signUpUser.setCreateAt("DateTest");
     }
 
     @Test
-    @Transactional
+    void insertUser() {
+        //given
+        Mockito.when(userService.checkEmail("emailTest@email.com")).thenReturn(false);
+        //when
+        User user = userService.insertUser(signUpUser);
+        //then
+        Mockito.verify(userMapper).createUser(user);
+    }
+
+    @Test
     void checkEmail() {
-        // given
-        SignUpUser user = new SignUpUser();
-        user.setEmail("email123@email.com");
-        user.setPassword("1234");
-        userService.insertUser(user);
-        // when
-        boolean result = userService.checkEmail(user.getEmail());
-        // then
-        assertTrue(result);
+        //given
+        Mockito.when(userMapper.isExistsEmail("emailTest@email.com")).thenReturn(true);
+        //when
+        assertTrue(userService.checkEmail(signUpUser.getEmail()));
     }
 }

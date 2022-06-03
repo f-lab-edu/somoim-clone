@@ -22,7 +22,7 @@ public class UserService {
     private final PasswordEncoder passwordEncorder;
 
     @Transactional
-    public void insertUser(SignUpUser user) {
+    public User insertUser(SignUpUser user) {
         if(checkEmail(user.getEmail())) {
             throw new DuplicateEmailException("This email already registered.");
         }
@@ -32,6 +32,7 @@ public class UserService {
                 simpleDateFormat.format(new Date()));
 
         userMapper.createUser(newUser);
+        return newUser;
     }
 
     @Transactional(readOnly = true)
