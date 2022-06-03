@@ -1,6 +1,6 @@
 package com.somoim.service;
 
-import com.somoim.dto.User;
+import com.somoim.model.dto.SignUpUser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,20 +18,20 @@ class UserServiceTest {
     @Transactional
     void insertUser() {
         // given
-        User newUser = new User();
+        SignUpUser newUser = new SignUpUser();
         newUser.setEmail("email123@email.com");
         newUser.setPassword("1234");
         // when
         userService.insertUser(newUser);
         // then
-        assertEquals(newUser.getEmail(), userService.selectMember("email123@email.com").getEmail());
+        assertEquals(newUser.getEmail(), userService.selectUser("email123@email.com").getEmail());
     }
 
     @Test
     @Transactional
     void checkEmail() {
         // given
-        User user = new User();
+        SignUpUser user = new SignUpUser();
         user.setEmail("email123@email.com");
         user.setPassword("1234");
         userService.insertUser(user);

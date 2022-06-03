@@ -1,5 +1,6 @@
 package com.somoim.model.dto;
 
+import com.somoim.model.dao.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,12 +18,12 @@ public class SignUpUser {
     private String createAt;
     private boolean disband;
 
-    public static SignUpUser createUser(String email, String password, String createAt) {
-        SignUpUser user = new SignUpUser();
-        user.email = email;
-        user.password = password;
-        user.createAt = createAt;
-        user.disband = false;
+    public static User createUser(String email, String password, String createAt) {
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setCreateAt(createAt);
+        user.setDisband(false);
         return user;
     }
 }

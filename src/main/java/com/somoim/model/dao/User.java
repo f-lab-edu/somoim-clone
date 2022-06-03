@@ -1,6 +1,5 @@
-package com.somoim.model.domain;
+package com.somoim.model.dao;
 
-import com.somoim.model.dto.SignUpUser;
 import lombok.Getter;
 import lombok.Setter;
 
