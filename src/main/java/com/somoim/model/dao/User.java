@@ -23,4 +23,11 @@ public class User {
     private String createAt;
     private String modifyAt;
     private boolean disband;
+
+    public void createUser(String email, String password, String createAt) {
+        this.email = email;
+        this.password = password;
+        this.createAt = createAt;
+        this.disband = false;
+    }
 }
