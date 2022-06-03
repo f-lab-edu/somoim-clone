@@ -10,17 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static reactor.core.publisher.Mono.when;
 
 //@SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -41,7 +33,7 @@ class UserServiceTest {
     void setUp () {
         signUpUser = new SignUpUser();
         signUpUser.setEmail("emailTest@email.com");
-        signUpUser.setPassword("emailTest@email.com");
+        signUpUser.setPassword("password");
         signUpUser.setCreateAt("DateTest");
     }
 
