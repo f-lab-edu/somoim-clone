@@ -22,25 +22,20 @@ public class UserService {
     private final PasswordEncoder passwordEncorder;
 
     @Transactional
-    public User insertUser(SignUpUser user) {
+    public void insertUser(SignUpUser user) {
         if(checkEmail(user.getEmail())) {
             throw new DuplicateEmailException("This email already registered.");
         }
-
-        User newUser = new User();
-        newUser.createUser(user.getEmail(),
-                passwordEncorder.encode(user.getPassword()),
-                simpleDateFormat.format(new Date()));
+        User newUser = User.builder()
+                        .email(user.getEmail())
+                        .password(passwordEncorder.encode(user.getPassword()))
+                        .createAt(simpleDateFormat.format(new Date()))
+                        .build();
         userMapper.createUser(newUser);
-        return newUser;
     }
 
     @Transactional(readOnly = true)
     public boolean checkEmail(String email) {
         return userMapper.isExistsEmail(email);
-    }
-
-    public SignUpUser selectUser(String email) {
-        return userMapper.selectUser(email);
     }
 }
