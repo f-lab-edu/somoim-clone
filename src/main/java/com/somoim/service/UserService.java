@@ -27,11 +27,12 @@ public class UserService {
             throw new DuplicateEmailException("This email already registered.");
         }
 
-        User newUser = SignUpUser.createUser(user.getEmail(),
-                passwordEncorder.encode(user.getPassword()),
-                simpleDateFormat.format(new Date()));
-
+        User newUser = new User();
+        newUser.createUser(user.getEmail(),
+                            passwordEncorder.encode(user.getPassword()),
+                            simpleDateFormat.format(new Date()));
         userMapper.createUser(newUser);
+
         return newUser;
     }
 
