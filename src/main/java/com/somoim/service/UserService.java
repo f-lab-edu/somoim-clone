@@ -26,7 +26,7 @@ public class UserService {
         if(checkEmail(user.getEmail())) {
             throw new DuplicateEmailException("This email already registered.");
         }
-        User newUser = User.builder()
+        User newUser = User.signUpUser()
                         .email(user.getEmail())
                         .password(passwordEncorder.encode(user.getPassword()))
                         .createAt(simpleDateFormat.format(new Date()))

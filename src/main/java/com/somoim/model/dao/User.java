@@ -26,10 +26,11 @@ public class User {
     private String modifyAt;
     private boolean disband;
 
-    @Builder
+    @Builder(builderMethodName = "signUpUser")
     public User(String email, String password, String createAt) {
         this.email = email;
         this.password = password;
         this.createAt = createAt;
+        this.disband = false;
     }
 }
