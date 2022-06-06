@@ -24,7 +24,7 @@ public class User {
     private String cityCode1;
     private String cityCode2;
     private LocalDateTime createAt;
-    private String modifyAt;
+    private LocalDateTime modifyAt;
     private Boolean disband;
 
     @Builder(builderMethodName = "signUpUser")
