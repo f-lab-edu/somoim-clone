@@ -34,7 +34,6 @@ class UserServiceTest {
         signUpUser = new SignUpUser();
         signUpUser.setEmail("emailTest@email.com");
         signUpUser.setPassword("password");
-        signUpUser.setCreateAt("DateTest");
     }
 
     @Test

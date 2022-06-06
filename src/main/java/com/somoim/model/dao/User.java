@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -19,15 +20,15 @@ public class User {
     private String imageId;
     private String name;
     private String birth;
-    private boolean gender;
+    private Boolean gender;
     private String cityCode1;
     private String cityCode2;
-    private String createAt;
+    private LocalDateTime createAt;
     private String modifyAt;
-    private boolean disband;
+    private Boolean disband;
 
     @Builder(builderMethodName = "signUpUser")
-    public User(String email, String password, String createAt) {
+    public User(String email, String password, LocalDateTime createAt) {
         this.email = email;
         this.password = password;
         this.createAt = createAt;

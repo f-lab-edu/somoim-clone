@@ -9,14 +9,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
-
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:sss");
 
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncorder;
@@ -27,9 +24,9 @@ public class UserService {
             throw new DuplicateEmailException("This email already registered.");
         }
         User newUser = User.signUpUser()
-                        .email(user.getEmail())
+                .email(user.getEmail())
                         .password(passwordEncorder.encode(user.getPassword()))
-                        .createAt(simpleDateFormat.format(new Date()))
+                        .createAt(LocalDateTime.now())
                         .build();
         userMapper.createUser(newUser);
     }

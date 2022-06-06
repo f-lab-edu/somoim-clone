@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,7 +15,5 @@ public class SignUpUser {
     private String email;
     @NotBlank
     private String password;
-    private String createAt;
-    private boolean disband;
 }
 
