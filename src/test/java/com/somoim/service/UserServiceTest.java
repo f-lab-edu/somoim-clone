@@ -55,4 +55,15 @@ class UserServiceTest {
         //when
         assertTrue(userService.checkEmail(signUpUser.getEmail()));
     }
+
+    @Test
+    void deleteUser() {
+        //when
+        userService.deleteUser(signUpUser.getEmail());
+        //then
+        ArgumentCaptor<User> argument = ArgumentCaptor.forClass(User.class);
+        Mockito.verify(userMapper).deleteUser(argument.capture());
+        assertTrue(argument.getValue().getDisband());
+        assertNotNull(argument.getValue().getModifyAt());
+    }
 }

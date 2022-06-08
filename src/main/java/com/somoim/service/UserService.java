@@ -35,4 +35,13 @@ public class UserService {
     public boolean checkEmail(String email) {
         return userMapper.isExistsEmail(email);
     }
+
+    @Transactional
+    public void deleteUser(String email) {
+        User resignUser = User.resignUser()
+                .email(email)
+                .modifyAt(LocalDateTime.now())
+                .build();
+        userMapper.deleteUser(resignUser);
+    }
 }

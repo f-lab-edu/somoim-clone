@@ -27,11 +27,18 @@ public class User {
     private LocalDateTime modifyAt;
     private Boolean disband;
 
-    @Builder(builderMethodName = "signUpUser")
+    @Builder(builderMethodName = "signUpUser", builderClassName = "signUpUser")
     public User(String email, String password, LocalDateTime createAt) {
         this.email = email;
         this.password = password;
         this.createAt = createAt;
         this.disband = false;
+    }
+
+    @Builder(builderMethodName = "resignUser", builderClassName = "resignUser")
+    public User(String email, LocalDateTime modifyAt) {
+        this.email = email;
+        this.modifyAt = modifyAt;
+        this.disband = true;
     }
 }

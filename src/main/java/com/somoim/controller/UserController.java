@@ -17,4 +17,7 @@ public class UserController {
     public void createUser(@Valid @RequestBody SignUpUser user) {
         userService.insertUser(user);
     }
+
+    @PostMapping("/resign")
+    public void deleteUser(@RequestBody SignUpUser user) { userService.deleteUser(user.getEmail()); }
 }

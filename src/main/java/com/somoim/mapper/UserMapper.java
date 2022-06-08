@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
     void createUser(User user);
     boolean isExistsEmail(String email);
+    void deleteUser(User user);
 }
