@@ -6,11 +6,11 @@ spring:
       username: "root"
       password: "1234"
 
-#    secondary:
-#      driver-class-name: com.mysql.cj.jdbc.Driver
-#      url: jdbc:mysql://localhost:33061/somoim?characterEncoding=UTF-8&userTimezone=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
-#      username: "root"
-#      password: "1234"
+    secondary:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3307/somoim?characterEncoding=UTF-8&userTimezone=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+      username: "repl"
+      password: "1234"
 
   sql:
     init:
