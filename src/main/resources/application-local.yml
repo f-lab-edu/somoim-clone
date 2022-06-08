@@ -1,6 +1,19 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/somoim?serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
-    password: 1234
+    primary:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/somoim?characterEncoding=UTF-8&userTimezone=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+      username: "root"
+      password: "1234"
+
+#    secondary:
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+#      url: jdbc:mysql://localhost:33061/somoim?characterEncoding=UTF-8&userTimezone=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+#      username: "root"
+#      password: "1234"
+
+  sql:
+    init:
+      schema-locations: classpath:/seeds/schema.sql
+      data-locations: classpath:/seeds/data.sql
+      mode: never
