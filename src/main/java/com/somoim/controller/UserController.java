@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,5 +20,5 @@ public class UserController {
     }
 
     @PostMapping("/resign")
-    public void deleteUser(@RequestBody SignUpUser user) { userService.deleteUser(user.getEmail()); }
+    public void deleteUser(@RequestBody Map<String,String> map) { userService.deleteUser(map.get("email")); }
 }
