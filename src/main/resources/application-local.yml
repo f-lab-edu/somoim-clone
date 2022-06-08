@@ -2,7 +2,7 @@ spring:
   datasource:
     primary:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:33060/somoim?characterEncoding=UTF-8&userTimezone=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+      url: jdbc:mysql://localhost:3306/somoim?characterEncoding=UTF-8&userTimezone=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
       username: "root"
       password: "1234"
 
