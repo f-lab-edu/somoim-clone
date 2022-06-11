@@ -1,6 +1,7 @@
 package com.somoim.service;
 
 import com.somoim.model.dao.User;
+import com.somoim.model.dto.ResignUser;
 import com.somoim.model.dto.SignUpUser;
 import com.somoim.exception.DuplicateEmailException;
 import com.somoim.mapper.UserMapper;
@@ -34,5 +35,14 @@ public class UserService {
     @Transactional(readOnly = true)
     public boolean checkEmail(String email) {
         return userMapper.isExistsEmail(email);
+    }
+
+    @Transactional
+    public void deleteUser(ResignUser user) {
+        User resignUser = User.resignUser()
+                .email(user.getEmail())
+                .modifyAt(LocalDateTime.now())
+                .build();
+        userMapper.deleteUser(resignUser);
     }
 }
