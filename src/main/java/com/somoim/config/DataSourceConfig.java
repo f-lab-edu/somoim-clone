@@ -27,8 +27,8 @@ public class DataSourceConfig {
     }
 
     @Bean
-    @ConfigurationProperties("spring.datasource.secondary")
-    public DataSourceProperties secondaryDataSourceProperties() {
+    @ConfigurationProperties("spring.datasource.readonly")
+    public DataSourceProperties readonlyDataSourceProperties() {
         return new DataSourceProperties();
     }
 
@@ -40,8 +40,8 @@ public class DataSourceConfig {
     }
 
     @Bean
-    public DataSource secondaryDataSource() {
-        return secondaryDataSourceProperties()
+    public DataSource readonlyDataSource() {
+        return readonlyDataSourceProperties()
             .initializeDataSourceBuilder()
             .build();
     }
@@ -49,20 +49,20 @@ public class DataSourceConfig {
     @Bean
     public DataSource routingDataSource(
         @Qualifier(value = "primaryDataSource") DataSource primaryDataSource,
-        @Qualifier(value = "secondaryDataSource") DataSource secondaryDataSource) {
+        @Qualifier(value = "readonlyDataSource") DataSource secondaryDataSource) {
 
         AbstractRoutingDataSource routingDataSource = new AbstractRoutingDataSource() {
             @Override
             protected Object determineCurrentLookupKey() {
                 return TransactionSynchronizationManager.isCurrentTransactionReadOnly()
-                    ? DataSourceType.SECONDARY : DataSourceType.PRIMARY;
+                    ? DataSourceType.READONLY : DataSourceType.PRIMARY;
             }
         };
 
         Map<Object, Object> targetDataSources = new HashMap<>();
 
         targetDataSources.put(DataSourceType.PRIMARY, primaryDataSource);
-        targetDataSources.put(DataSourceType.SECONDARY, secondaryDataSource);
+        targetDataSources.put(DataSourceType.READONLY, secondaryDataSource);
 
         routingDataSource.setTargetDataSources(targetDataSources);
         routingDataSource.setDefaultTargetDataSource(primaryDataSource);

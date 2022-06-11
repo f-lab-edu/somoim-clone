@@ -6,7 +6,7 @@ spring:
       username: "root"
       password: "1234"
 
-    secondary:
+    readonly:
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://localhost:3307/somoim?characterEncoding=UTF-8&userTimezone=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
       username: "repl"
