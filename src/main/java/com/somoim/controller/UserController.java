@@ -1,5 +1,6 @@
 package com.somoim.controller;
 
+import com.somoim.model.dto.ResignUser;
 import com.somoim.model.dto.SignUpUser;
 import com.somoim.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +21,5 @@ public class UserController {
     }
 
     @PostMapping("/resign")
-    public void deleteUser(@RequestBody Map<String,String> map) { userService.deleteUser(map.get("email")); }
+    public void deleteUser(@RequestBody ResignUser resignUser) { userService.deleteUser(resignUser); }
 }

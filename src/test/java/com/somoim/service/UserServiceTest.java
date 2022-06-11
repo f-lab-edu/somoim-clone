@@ -2,6 +2,7 @@ package com.somoim.service;
 
 import com.somoim.mapper.UserMapper;
 import com.somoim.model.dao.User;
+import com.somoim.model.dto.ResignUser;
 import com.somoim.model.dto.SignUpUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,12 +29,16 @@ class UserServiceTest {
     UserService userService;
 
     SignUpUser signUpUser;
+    ResignUser resignUser;
 
     @BeforeEach
     void setUp () {
         signUpUser = new SignUpUser();
         signUpUser.setEmail("emailTest@email.com");
         signUpUser.setPassword("password");
+
+        resignUser = new ResignUser();
+        resignUser.setEmail("emailTest@email.com");
     }
 
     @Test
@@ -59,7 +64,7 @@ class UserServiceTest {
     @Test
     void deleteUser() {
         //when
-        userService.deleteUser(signUpUser.getEmail());
+        userService.deleteUser(resignUser);
         //then
         ArgumentCaptor<User> argument = ArgumentCaptor.forClass(User.class);
         Mockito.verify(userMapper).deleteUser(argument.capture());
