@@ -29,4 +29,9 @@ public class UserController {
         userService.loginUser(loginUser);
         return ResponseEntity.ok("login success");
     }
+
+    @GetMapping("/logout")
+    public void logoutUser() {
+        userService.logoutUser();
+    }
 }

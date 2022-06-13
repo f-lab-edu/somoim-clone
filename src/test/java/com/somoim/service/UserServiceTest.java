@@ -92,7 +92,7 @@ class UserServiceTest {
         when(httpSession.getAttribute("USER_EMAIL")).thenReturn(loginUser.getEmail());
 
         //when
-        boolean result = userService.checkLogin(loginUser.getEmail());
+        boolean result = userService.checkLogin();
 
         //then
         assertTrue(result);
@@ -114,6 +114,6 @@ class UserServiceTest {
         userService.loginUser(loginUser);
 
         //then
-        assertTrue(userService.checkLogin(loginUser.getEmail()));
+        assertTrue(userService.checkLogin());
     }
 }

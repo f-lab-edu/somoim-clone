@@ -55,7 +55,6 @@ public class UserService {
         return userMapper.findUserByEmail(email);
     }
 
-    @Transactional
     public void loginUser(LoginUser loginUser) {
        User user = findUserByEmail(loginUser.getEmail());
         if(passwordEncorder.matches(loginUser.getPassword(), user.getPassword())) {
@@ -65,11 +64,15 @@ public class UserService {
             throw new IllegalArgumentException("The password is invalid.");
     }
 
-    public boolean checkLogin(String email)
+    public void logoutUser() {
+        httpSession.removeAttribute(USER_EMAIL);
+    }
+
+    public boolean checkLogin()
     {
         if(httpSession.getAttribute(USER_EMAIL) == null)
             return false;
-
-        return httpSession.getAttribute(USER_EMAIL).equals(email);
+        else
+            return true;
     }
 }
