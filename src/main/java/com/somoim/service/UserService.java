@@ -24,11 +24,14 @@ public class UserService {
         if(checkEmail(user.getEmail())) {
             throw new DuplicateEmailException("This email already registered.");
         }
+
+        LocalDateTime time = LocalDateTime.now();
+
         User newUser = User.signUpUser()
                 .email(user.getEmail())
                         .password(passwordEncorder.encode(user.getPassword()))
-                        .createAt(LocalDateTime.now())
-                        .modifyAt(LocalDateTime.now())
+                        .createAt(time)
+                        .modifyAt(time)
                         .build();
         userMapper.createUser(newUser);
     }
