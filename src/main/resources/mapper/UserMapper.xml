@@ -14,4 +14,7 @@
     <update id="deleteUser" parameterType="com.somoim.model.dao.User">
         UPDATE user SET modify_at = #{modifyAt}, disband = #{disband} WHERE email = #{email}
     </update>
+    <select id="findUserByEmail" resultType="com.somoim.model.dao.User">
+        SELECT email, password, image_id, name, birth, gender, city_code1, city_code2, create_at, modify_at, disband FROM user WHERE email = #{email}
+    </select>
 </mapper>

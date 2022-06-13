@@ -2,6 +2,7 @@ package com.somoim.service;
 
 import com.somoim.mapper.UserMapper;
 import com.somoim.model.dao.User;
+import com.somoim.model.dto.LoginUser;
 import com.somoim.model.dto.ResignUser;
 import com.somoim.model.dto.SignUpUser;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,15 +13,23 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.servlet.http.HttpSession;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
     @Mock
     PasswordEncoder passwordEncorder;
+
+    @Mock
+    HttpSession httpSession;
 
     @Mock
     UserMapper userMapper;
@@ -30,6 +39,7 @@ class UserServiceTest {
 
     SignUpUser signUpUser;
     ResignUser resignUser;
+    LoginUser loginUser;
 
     @BeforeEach
     void setUp () {
@@ -39,12 +49,16 @@ class UserServiceTest {
 
         resignUser = new ResignUser();
         resignUser.setEmail("emailTest@email.com");
+
+        loginUser = new LoginUser();
+        loginUser.setEmail("emailTest@email.com");
+        loginUser.setPassword("password");
     }
 
     @Test
     void insertUser() {
         //given
-        Mockito.when(userService.checkEmail("emailTest@email.com")).thenReturn(false);
+        when(userService.checkEmail("emailTest@email.com")).thenReturn(false);
         //when
         userService.insertUser(signUpUser);
         //then
@@ -56,7 +70,7 @@ class UserServiceTest {
     @Test
     void checkEmail() {
         //given
-        Mockito.when(userMapper.isExistsEmail("emailTest@email.com")).thenReturn(true);
+        when(userMapper.isExistsEmail("emailTest@email.com")).thenReturn(true);
         //when
         assertTrue(userService.checkEmail(signUpUser.getEmail()));
     }
@@ -70,5 +84,36 @@ class UserServiceTest {
         Mockito.verify(userMapper).deleteUser(argument.capture());
         assertTrue(argument.getValue().getDisband());
         assertNotNull(argument.getValue().getModifyAt());
+    }
+
+    @Test
+    void checkLogin() {
+        //given
+        when(httpSession.getAttribute("USER_EMAIL")).thenReturn(loginUser.getEmail());
+
+        //when
+        boolean result = userService.checkLogin(loginUser.getEmail());
+
+        //then
+        assertTrue(result);
+    }
+
+    @Test
+    void loginUser() {
+        //given
+        User signUpUser = User.signUpUser()
+                        .email(this.signUpUser.getEmail())
+                        .password(this.signUpUser.getPassword())
+                        .build();
+
+        //when
+        when(userService.findUserByEmail(loginUser.getEmail())).thenReturn(signUpUser);
+        when(passwordEncorder.matches(loginUser.getPassword(), signUpUser.getPassword())).thenReturn(true);
+        when(httpSession.getAttribute("USER_EMAIL")).thenReturn(loginUser.getEmail());
+
+        userService.loginUser(loginUser);
+
+        //then
+        assertTrue(userService.checkLogin(loginUser.getEmail()));
     }
 }
