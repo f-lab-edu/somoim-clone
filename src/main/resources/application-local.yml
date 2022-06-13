@@ -17,3 +17,11 @@ spring:
       schema-locations: classpath:/seeds/schema.sql
       data-locations: classpath:/seeds/data.sql
       mode: never
+
+  session:
+    store-type: redis
+  redis:
+    host: localhost
+    password: 
+    port: 6379
+
