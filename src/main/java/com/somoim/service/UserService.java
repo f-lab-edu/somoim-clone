@@ -70,9 +70,6 @@ public class UserService {
 
     public boolean checkLogin()
     {
-        if(httpSession.getAttribute(USER_EMAIL) == null)
-            return false;
-        else
-            return true;
+        return (httpSession.getAttribute(USER_EMAIL) != null);
     }
 }
