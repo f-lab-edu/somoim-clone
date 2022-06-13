@@ -28,6 +28,7 @@ public class UserService {
                 .email(user.getEmail())
                         .password(passwordEncorder.encode(user.getPassword()))
                         .createAt(LocalDateTime.now())
+                        .modifyAt(LocalDateTime.now())
                         .build();
         userMapper.createUser(newUser);
     }

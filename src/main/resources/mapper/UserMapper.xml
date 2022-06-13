@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.somoim.mapper.UserMapper">
     <insert id="createUser" parameterType="com.somoim.model.dao.User">
-        INSERT INTO user (email, password, create_at, disband)
-        VALUES (#{email}, #{password}, #{createAt}, #{disband})
+        INSERT INTO user (email, password, create_at, modify_at, disband)
+        VALUES (#{email}, #{password}, #{createAt}, #{modifyAt}, #{disband})
     </insert>
     <select id="isExistsEmail" resultType="boolean">
         SELECT EXISTS
