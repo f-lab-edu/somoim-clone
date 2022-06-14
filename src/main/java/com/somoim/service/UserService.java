@@ -21,7 +21,7 @@ public class UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncorder;
     private final HttpSession httpSession;
-    private final String USER_EMAIL = "USER_EMAIL";
+    private final String USER_ID = "USER_ID";
 
     @Transactional
     public void insertUser(SignUpUser user) {
@@ -58,18 +58,18 @@ public class UserService {
     public void loginUser(LoginUser loginUser) {
        User user = findUserByEmail(loginUser.getEmail());
         if(passwordEncorder.matches(loginUser.getPassword(), user.getPassword())) {
-            httpSession.setAttribute(USER_EMAIL, user.getEmail());
+            httpSession.setAttribute(USER_ID, user.getId());
         }
         else
             throw new IllegalArgumentException("The password is invalid.");
     }
 
     public void logoutUser() {
-        httpSession.removeAttribute(USER_EMAIL);
+        httpSession.removeAttribute(USER_ID);
     }
 
     public boolean checkLogin()
     {
-        return (httpSession.getAttribute(USER_EMAIL) != null);
+        return (httpSession.getAttribute(USER_ID) != null);
     }
 }

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Setter
@@ -11,17 +12,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
+    @NotBlank
+    private Long id;
     @Email
     @NotBlank
     private String email;
     @NotBlank
     private String password;
-    private Long imageId;
     private String name;
     private String birth;
     private String gender;
     private Integer cityCode1;
     private Integer cityCode2;
+    private Long imageId;
     private LocalDateTime createAt;
     private LocalDateTime modifyAt;
     private Boolean disband;

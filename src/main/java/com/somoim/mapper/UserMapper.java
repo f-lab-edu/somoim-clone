@@ -1,7 +1,6 @@
 package com.somoim.mapper;
 
 import com.somoim.model.dao.User;
-import com.somoim.model.dto.SignUpUser;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

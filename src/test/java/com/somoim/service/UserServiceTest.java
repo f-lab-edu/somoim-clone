@@ -89,11 +89,9 @@ class UserServiceTest {
     @Test
     void checkLogin() {
         //given
-        when(httpSession.getAttribute("USER_EMAIL")).thenReturn(loginUser.getEmail());
-
+        when(httpSession.getAttribute("USER_ID")).thenReturn(1L);
         //when
         boolean result = userService.checkLogin();
-
         //then
         assertTrue(result);
     }
@@ -105,11 +103,12 @@ class UserServiceTest {
                         .email(this.signUpUser.getEmail())
                         .password(this.signUpUser.getPassword())
                         .build();
+        signUpUser.setId(1L);
 
         //when
         when(userService.findUserByEmail(loginUser.getEmail())).thenReturn(signUpUser);
         when(passwordEncorder.matches(loginUser.getPassword(), signUpUser.getPassword())).thenReturn(true);
-        when(httpSession.getAttribute("USER_EMAIL")).thenReturn(loginUser.getEmail());
+        when(httpSession.getAttribute("USER_ID")).thenReturn(signUpUser.getId());
 
         userService.loginUser(loginUser);
 
