@@ -56,7 +56,7 @@ public class UserService {
     }
 
     public void loginUser(LoginUser loginUser) {
-       User user = findUserByEmail(loginUser.getEmail());
+        User user = findUserByEmail(loginUser.getEmail());
         if(passwordEncorder.matches(loginUser.getPassword(), user.getPassword())) {
             httpSession.setAttribute(USER_ID, user.getId());
         }
@@ -68,8 +68,7 @@ public class UserService {
         httpSession.removeAttribute(USER_ID);
     }
 
-    public boolean checkLogin()
-    {
-        return (httpSession.getAttribute(USER_ID) != null);
+    public boolean checkLogin() {
+        return httpSession.getAttribute(USER_ID) != null;
     }
 }
