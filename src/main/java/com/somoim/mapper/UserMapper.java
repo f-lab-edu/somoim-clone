@@ -9,4 +9,5 @@ public interface UserMapper {
     boolean isExistsEmail(String email);
     void deleteUser(User user);
     User findUserByEmail(String email);
+    boolean getDisbandByEmail(String email);
 }

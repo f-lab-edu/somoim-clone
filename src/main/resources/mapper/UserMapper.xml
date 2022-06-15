@@ -17,4 +17,7 @@
     <select id="findUserByEmail" parameterType="string" resultType="com.somoim.model.dao.User">
         SELECT * FROM user WHERE email = #{email}
     </select>
+    <select id="getDisbandByEmail" resultType="boolean">
+        SELECT disband FROM user WHERE email = #{email}
+    </select>
 </mapper>

@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.servlet.http.HttpSession;
@@ -114,5 +113,22 @@ class UserServiceTest {
 
         //then
         assertTrue(userService.checkLogin());
+    }
+
+    @Test
+    void checkDisband() {
+        //given
+        User signUpUser = User.signUpUser()
+                .email(this.signUpUser.getEmail())
+                .password(this.signUpUser.getPassword())
+                .build();
+
+        //when
+        when(userMapper.getDisbandByEmail(signUpUser.getEmail())).thenReturn(true);
+
+        boolean result = userService.checkDisband(signUpUser.getEmail());
+
+        //then
+        assertTrue(result);
     }
 }

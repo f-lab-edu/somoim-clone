@@ -57,11 +57,18 @@ public class UserService {
 
     public void loginUser(LoginUser loginUser) {
         User user = findUserByEmail(loginUser.getEmail());
-        if(passwordEncorder.matches(loginUser.getPassword(), user.getPassword())) {
-            httpSession.setAttribute(USER_ID, user.getId());
+        if(user != null) {
+            if(passwordEncorder.matches(loginUser.getPassword(), user.getPassword())) {
+                if(!checkDisband(loginUser.getEmail()))
+                    httpSession.setAttribute(USER_ID, user.getId());
+                else
+                    throw new IllegalArgumentException("The retired user.");
+            }
+            else
+                throw new IllegalArgumentException("The password is invalid.");
         }
         else
-            throw new IllegalArgumentException("The password is invalid.");
+            throw new IllegalArgumentException("The user does not exist.");
     }
 
     public void logoutUser() {
@@ -70,5 +77,10 @@ public class UserService {
 
     public boolean checkLogin() {
         return httpSession.getAttribute(USER_ID) != null;
+    }
+
+    @Transactional(readOnly = true)
+    public boolean checkDisband(String email) {
+        return userMapper.getDisbandByEmail(email);
     }
 }
