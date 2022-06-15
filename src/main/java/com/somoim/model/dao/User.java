@@ -28,10 +28,11 @@ public class User {
     private Boolean disband;
 
     @Builder(builderMethodName = "signUpUser", builderClassName = "signUpUser")
-    public User(String email, String password, LocalDateTime createAt) {
+    public User(String email, String password, LocalDateTime createAt, LocalDateTime modifyAt) {
         this.email = email;
         this.password = password;
         this.createAt = createAt;
+        this.modifyAt = modifyAt;
         this.disband = false;
     }
 

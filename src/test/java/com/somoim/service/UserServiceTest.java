@@ -51,6 +51,8 @@ class UserServiceTest {
         ArgumentCaptor<User> argument = ArgumentCaptor.forClass(User.class);
         Mockito.verify(userMapper).createUser(argument.capture());
         assertEquals(signUpUser.getEmail(), argument.getValue().getEmail());
+        assertNotNull(argument.getValue().getCreateAt());
+        assertNotNull(argument.getValue().getModifyAt());
     }
 
     @Test
