@@ -41,7 +41,7 @@ class UserServiceTest {
     LoginUser loginUser;
 
     @BeforeEach
-    void setUp() {
+    void setUp () {
         signUpUser = new SignUpUser();
         signUpUser.setEmail("emailTest@email.com");
         signUpUser.setPassword("password");
@@ -100,18 +100,15 @@ class UserServiceTest {
     @Test
     void loginUser() {
         //given
-        User signUpUser = User.builder()
-            .email(this.signUpUser.getEmail())
-            .password(this.signUpUser.getPassword())
-            .disband(false)
-            .build();
+        User signUpUser = User.signUpUser()
+                        .email(this.signUpUser.getEmail())
+                        .password(this.signUpUser.getPassword())
+                        .build();
         signUpUser.setId(1L);
 
         //when
         when(userService.findUserByEmail(loginUser.getEmail())).thenReturn(signUpUser);
-        when(
-            passwordEncorder.matches(loginUser.getPassword(), signUpUser.getPassword())).thenReturn(
-            true);
+        when(passwordEncorder.matches(loginUser.getPassword(), signUpUser.getPassword())).thenReturn(true);
         when(httpSession.getAttribute("USER_ID")).thenReturn(signUpUser.getId());
 
         userService.loginUser(loginUser);
@@ -123,11 +120,10 @@ class UserServiceTest {
     @Test
     void checkDisband() {
         //given
-        User signUpUser = User.builder()
-            .email(this.signUpUser.getEmail())
-            .password(this.signUpUser.getPassword())
-            .disband(true)
-            .build();
+        User signUpUser = User.signUpUser()
+                .email(this.signUpUser.getEmail())
+                .password(this.signUpUser.getPassword())
+                .build();
 
         //when
         when(userMapper.getDisbandByEmail(signUpUser.getEmail())).thenReturn(true);
