@@ -14,4 +14,10 @@
     <update id="deleteUser" parameterType="com.somoim.model.dao.User">
         UPDATE user SET modify_at = #{modifyAt}, disband = #{disband} WHERE email = #{email}
     </update>
+    <select id="findUserByEmail" parameterType="string" resultType="com.somoim.model.dao.User">
+        SELECT * FROM user WHERE email = #{email}
+    </select>
+    <select id="getDisbandByEmail" resultType="boolean">
+        SELECT disband FROM user WHERE email = #{email}
+    </select>
 </mapper>
