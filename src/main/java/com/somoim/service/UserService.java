@@ -1,18 +1,17 @@
 package com.somoim.service;
 
+import com.somoim.exception.DuplicateEmailException;
+import com.somoim.mapper.UserMapper;
 import com.somoim.model.dao.User;
 import com.somoim.model.dto.LoginUser;
 import com.somoim.model.dto.ResignUser;
 import com.somoim.model.dto.SignUpUser;
-import com.somoim.exception.DuplicateEmailException;
-import com.somoim.mapper.UserMapper;
+import java.time.LocalDateTime;
+import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -25,18 +24,18 @@ public class UserService {
 
     @Transactional
     public void insertUser(SignUpUser user) {
-        if(checkEmail(user.getEmail())) {
+        if (checkEmail(user.getEmail())) {
             throw new DuplicateEmailException("This email already registered.");
         }
 
         LocalDateTime time = LocalDateTime.now();
 
         User newUser = User.signUpUser()
-                .email(user.getEmail())
-                        .password(passwordEncorder.encode(user.getPassword()))
-                        .createAt(time)
-                        .modifyAt(time)
-                        .build();
+            .email(user.getEmail())
+            .password(passwordEncorder.encode(user.getPassword()))
+            .createAt(time)
+            .modifyAt(time)
+            .build();
         userMapper.createUser(newUser);
     }
 
@@ -48,9 +47,9 @@ public class UserService {
     @Transactional
     public void deleteUser(ResignUser user) {
         User resignUser = User.resignUser()
-                .email(user.getEmail())
-                .modifyAt(LocalDateTime.now())
-                .build();
+            .email(user.getEmail())
+            .modifyAt(LocalDateTime.now())
+            .build();
         userMapper.deleteUser(resignUser);
     }
 
@@ -61,18 +60,19 @@ public class UserService {
 
     public void loginUser(LoginUser loginUser) {
         User user = findUserByEmail(loginUser.getEmail());
-        if(user != null) {
-            if(passwordEncorder.matches(loginUser.getPassword(), user.getPassword())) {
-                if(!checkDisband(loginUser.getEmail()))
+        if (user != null) {
+            if (passwordEncorder.matches(loginUser.getPassword(), user.getPassword())) {
+                if (!checkDisband(loginUser.getEmail())) {
                     httpSession.setAttribute(USER_ID, user.getId());
-                else
+                } else {
                     throw new IllegalArgumentException("The retired user.");
-            }
-            else
+                }
+            } else {
                 throw new IllegalArgumentException("The password is invalid.");
-        }
-        else
+            }
+        } else {
             throw new IllegalArgumentException("The user does not exist.");
+        }
     }
 
     public void logoutUser() {

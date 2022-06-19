@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-    <settings>
-        <setting name="mapUnderscoreToCamelCase" value="true"/>     <!--Column 명을 Camel case로 자동 변환 후 매핑-->
-        <setting name="callSettersOnNulls" value="false"/>          <!--가져온 값이 null일때 setter나 맵의 put 메소드를 호출할지를 명시 : 호출하지 않음, value 값이 null로 지정-->
-        <setting name="jdbcTypeForNull" value="NULL"/>              <!--JDBC타입을 파라미터에 제공하지 않을때 null값을 처리할 JDBC타입을 명시 : NULL로 처리 -->
-    </settings>
+  <settings>
+    <setting name="mapUnderscoreToCamelCase"
+      value="true"/>     <!--Column 명을 Camel case로 자동 변환 후 매핑-->
+    <setting name="callSettersOnNulls"
+      value="false"/>          <!--가져온 값이 null일때 setter나 맵의 put 메소드를 호출할지를 명시 : 호출하지 않음, value 값이 null로 지정-->
+    <setting name="jdbcTypeForNull"
+      value="NULL"/>              <!--JDBC타입을 파라미터에 제공하지 않을때 null값을 처리할 JDBC타입을 명시 : NULL로 처리 -->
+  </settings>
 </configuration>
