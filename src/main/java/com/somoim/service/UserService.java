@@ -25,18 +25,19 @@ public class UserService {
 
     @Transactional
     public void insertUser(SignUpUser user) {
-        if(checkEmail(user.getEmail())) {
+        if (checkEmail(user.getEmail())) {
             throw new DuplicateEmailException("This email already registered.");
         }
 
         LocalDateTime time = LocalDateTime.now();
 
-        User newUser = User.signUpUser()
-                .email(user.getEmail())
-                        .password(passwordEncorder.encode(user.getPassword()))
-                        .createAt(time)
-                        .modifyAt(time)
-                        .build();
+        User newUser = User.builder()
+            .email(user.getEmail())
+            .password(passwordEncorder.encode(user.getPassword()))
+            .createAt(time)
+            .modifyAt(time)
+            .disband(false)
+            .build();
         userMapper.createUser(newUser);
     }
 
@@ -47,10 +48,11 @@ public class UserService {
 
     @Transactional
     public void deleteUser(ResignUser user) {
-        User resignUser = User.resignUser()
-                .email(user.getEmail())
-                .modifyAt(LocalDateTime.now())
-                .build();
+        User resignUser = User.builder()
+            .email(user.getEmail())
+            .modifyAt(LocalDateTime.now())
+            .disband(true)
+            .build();
         userMapper.deleteUser(resignUser);
     }
 
@@ -61,18 +63,19 @@ public class UserService {
 
     public void loginUser(LoginUser loginUser) {
         User user = findUserByEmail(loginUser.getEmail());
-        if(user != null) {
-            if(passwordEncorder.matches(loginUser.getPassword(), user.getPassword())) {
-                if(!checkDisband(loginUser.getEmail()))
+        if (user != null) {
+            if (passwordEncorder.matches(loginUser.getPassword(), user.getPassword())) {
+                if (!checkDisband(loginUser.getEmail())) {
                     httpSession.setAttribute(USER_ID, user.getId());
-                else
+                } else {
                     throw new IllegalArgumentException("The retired user.");
-            }
-            else
+                }
+            } else {
                 throw new IllegalArgumentException("The password is invalid.");
-        }
-        else
+            }
+        } else {
             throw new IllegalArgumentException("The user does not exist.");
+        }
     }
 
     public void logoutUser() {
