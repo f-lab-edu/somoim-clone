@@ -23,7 +23,7 @@ public class ProfileController {
     private final UserService userService;
 
     @GetMapping
-    public UserProfile getProfile(@RequestParam Long userId) {
+    public UserProfile getUserProfile(@RequestParam Long userId) {
         if (!userService.checkLogin()) {
             throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
         }
