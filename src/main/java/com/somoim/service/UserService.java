@@ -30,11 +30,12 @@ public class UserService {
 
         LocalDateTime time = LocalDateTime.now();
 
-        User newUser = User.signUpUser()
+        User newUser = User.builder()
             .email(user.getEmail())
             .password(passwordEncorder.encode(user.getPassword()))
             .createAt(time)
             .modifyAt(time)
+            .disband(false)
             .build();
         userMapper.createUser(newUser);
     }
@@ -46,9 +47,10 @@ public class UserService {
 
     @Transactional
     public void deleteUser(ResignUser user) {
-        User resignUser = User.resignUser()
+        User resignUser = User.builder()
             .email(user.getEmail())
             .modifyAt(LocalDateTime.now())
+            .disband(true)
             .build();
         userMapper.deleteUser(resignUser);
     }
