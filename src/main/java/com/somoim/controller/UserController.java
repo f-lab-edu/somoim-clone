@@ -14,6 +14,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
+
     private final UserService userService;
 
     @PostMapping("/signUp")
@@ -22,7 +23,9 @@ public class UserController {
     }
 
     @PostMapping("/resign")
-    public void deleteUser(@RequestBody ResignUser resignUser) { userService.deleteUser(resignUser); }
+    public void deleteUser(@RequestBody ResignUser resignUser) {
+        userService.deleteUser(resignUser);
+    }
 
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@Valid @RequestBody LoginUser loginUser) {

@@ -54,8 +54,8 @@ public class DataSourceConfig {
         AbstractRoutingDataSource routingDataSource = new AbstractRoutingDataSource() {
             @Override
             protected Object determineCurrentLookupKey() {
-                return TransactionSynchronizationManager.isCurrentTransactionReadOnly()
-                    ? DataSourceType.READONLY : DataSourceType.PRIMARY;
+                return TransactionSynchronizationManager.isCurrentTransactionReadOnly() ?
+                    DataSourceType.READONLY : DataSourceType.PRIMARY;
             }
         };
 
