@@ -81,10 +81,6 @@ public class UserService {
         httpSession.removeAttribute(USER_ID);
     }
 
-    public boolean checkLogin() {
-        return httpSession.getAttribute(USER_ID) != null;
-    }
-
     @Transactional(readOnly = true)
     public boolean checkDisband(String email) {
         return userMapper.getDisbandByEmail(email);

@@ -1,5 +1,6 @@
 package com.somoim.controller;
 
+import com.somoim.annotation.LoginCheck;
 import com.somoim.model.dto.UserProfile;
 import com.somoim.service.ProfileService;
 import com.somoim.service.UserService;
@@ -22,21 +23,15 @@ public class ProfileController {
 
     private final UserService userService;
 
+    @LoginCheck
     @GetMapping
     public UserProfile getUserProfile(@RequestParam Long userId) {
-        if (!userService.checkLogin()) {
-            throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
-        }
-
         return profileService.getUserProfile(userId);
     }
 
+    @LoginCheck
     @PutMapping
     public void updateProfile(@RequestBody UserProfile userProfile) {
-        if (!userService.checkLogin()) {
-            throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
-        }
-
         profileService.updateProfile(userProfile);
     }
 }
