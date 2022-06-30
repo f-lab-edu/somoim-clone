@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.somoim.mapper.InterestMapper">
+  <select id="selectInterestFromParent" resultType="com.somoim.model.dao.Category">
+    SELECT *
+    FROM category
+    WHERE parent = #{parent}
+  </select>
+
+  <select id="selectUserInterests" parameterType="Long"
+    resultType="com.somoim.model.dto.UserInterest">
+    SELECT p.id as parent_id, c.id, p.name as parent_name, c.name
+    FROM category c
+           JOIN category p ON c.parent = p.id AND c.id IN (SELECT i.category_id
+                                                           FROM interest i
+                                                           WHERE i.user_id = #{userId})
+  </select>
+
+  <delete id="deleteInterests" parameterType="com.somoim.model.dto.UpdateInterest">
+    DELETE
+    FROM interest
+    WHERE user_id = #{userId}
+    AND category_id NOT IN (
+    <foreach collection="categories" index="index" item="category" separator=",">
+      #{category}
+    </foreach>
+    )
+  </delete>
+
+  <insert id="insertInterests" parameterType="com.somoim.model.dto.UpdateInterest">
+    INSERT IGNORE INTO interest(user_id, category_id)
+    VALUES
+    <foreach collection="categories" index="index" item="category" separator=",">
+      ( #{userId}, #{category} )
+    </foreach>
+  </insert>
+</mapper>
