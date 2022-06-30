@@ -8,6 +8,6 @@ import lombok.Getter;
 @Builder
 public class UpdateInterest {
 
-    Long userId;
-    List<Long> categories;
+    private Long userId;
+    private List<Long> categories;
 }
