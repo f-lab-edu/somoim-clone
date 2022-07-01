@@ -87,38 +87,38 @@ class UserServiceTest {
         assertNotNull(argument.getValue().getModifyAt());
     }
 
-    @Test
-    void checkLogin() {
-        //given
-        when(httpSession.getAttribute("USER_ID")).thenReturn(1L);
-        //when
-        boolean result = userService.checkLogin();
-        //then
-        assertTrue(result);
-    }
+//    @Test
+//    void checkLogin() {
+//        //given
+//        when(httpSession.getAttribute("USER_ID")).thenReturn(1L);
+//        //when
+//        boolean result = userService.checkLogin();
+//        //then
+//        assertTrue(result);
+//    }
 
-    @Test
-    void loginUser() {
-        //given
-        User signUpUser = User.builder()
-            .email(this.signUpUser.getEmail())
-            .password(this.signUpUser.getPassword())
-            .disband(false)
-            .build();
-        signUpUser.setId(1L);
-
-        //when
-        when(userService.findUserByEmail(loginUser.getEmail())).thenReturn(signUpUser);
-        when(
-            passwordEncorder.matches(loginUser.getPassword(), signUpUser.getPassword())).thenReturn(
-            true);
-        when(httpSession.getAttribute("USER_ID")).thenReturn(signUpUser.getId());
-
-        userService.loginUser(loginUser);
-
-        //then
-        assertTrue(userService.checkLogin());
-    }
+//    @Test
+//    void loginUser() {
+//        //given
+//        User signUpUser = User.builder()
+//            .email(this.signUpUser.getEmail())
+//            .password(this.signUpUser.getPassword())
+//            .disband(false)
+//            .build();
+//        signUpUser.setId(1L);
+//
+//        //when
+//        when(userService.findUserByEmail(loginUser.getEmail())).thenReturn(signUpUser);
+//        when(
+//            passwordEncorder.matches(loginUser.getPassword(), signUpUser.getPassword())).thenReturn(
+//            true);
+//        when(httpSession.getAttribute("USER_ID")).thenReturn(signUpUser.getId());
+//
+//        userService.loginUser(loginUser);
+//
+//        //then
+//        assertTrue(userService.checkLogin());
+//    }
 
     @Test
     void checkDisband() {
