@@ -23,7 +23,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                  sh "ssh -P 1025 root@210.89.190.215 -T sh < /var/lib/jenkins/deploy.sh"
+                  sh "ssh -p 1025 root@210.89.190.215 -T sh < /var/lib/jenkins/deploy.sh"
                 }
             }
         }
