@@ -14,10 +14,17 @@ pipeline {
             }
         }
 
+        stage('Send jar') {
+          steps {
+            sh "scp -P 1025 build/libs/*.jar root@210.89.190.215:~/somoim/app/somoim.jar"
+          }
+        }
+
         stage('Deploy') {
             steps {
-                sh "scp -P 1025 build/libs/*.jar root@210.89.190.215:~/somoim/app/somoim.jar"
-                sh "ssh -P 1025 root@210.89.190.215 -T sh < ~/somoim/deploy.sh"
+                script {
+                  sh "ssh -P 1025 root@210.89.190.215 -T sh < ~/somoim/deploy.sh"
+                }
             }
         }
     }
