@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.somoim.mapper.GroupMapper">
+    <insert id="insertGroup" parameterType="com.somoim.model.dao.Group">
+        INSERT INTO `group` (`category_id`, `image_id`, `city_code1`, `city_code2`, `name`, `detail`, `create_at`, `modify_at`, `disband`)
+        VALUES (#{categoryId}, #{imageId}, #{cityCode1}, #{cityCode2}, #{name}, #{detail}, #{createAt}, #{modifyAt}, #{disband})
+    </insert>
+</mapper>
