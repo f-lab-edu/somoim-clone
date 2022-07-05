@@ -19,7 +19,7 @@ public class UserController {
 
     @PostMapping("/signUp")
     public void createUser(@Valid @RequestBody SignUpUser user) {
-        userService.insertUser(user);
+        userService.createUser(user);
     }
 
     @PostMapping("/resign")

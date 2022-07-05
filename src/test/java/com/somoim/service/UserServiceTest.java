@@ -18,8 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.servlet.http.HttpSession;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -59,10 +58,10 @@ class UserServiceTest {
         //given
         when(userService.checkEmail("emailTest@email.com")).thenReturn(false);
         //when
-        userService.insertUser(signUpUser);
+        userService.createUser(signUpUser);
         //then
         ArgumentCaptor<User> argument = ArgumentCaptor.forClass(User.class);
-        Mockito.verify(userMapper).createUser(argument.capture());
+        Mockito.verify(userMapper).insertUser(argument.capture());
         assertEquals(signUpUser.getEmail(), argument.getValue().getEmail());
         assertNotNull(argument.getValue().getCreateAt());
         assertNotNull(argument.getValue().getModifyAt());
@@ -88,16 +87,6 @@ class UserServiceTest {
     }
 
     @Test
-    void checkLogin() {
-        //given
-        when(httpSession.getAttribute("USER_ID")).thenReturn(1L);
-        //when
-        boolean result = userService.checkLogin();
-        //then
-        assertTrue(result);
-    }
-
-    @Test
     void loginUser() {
         //given
         User signUpUser = User.builder()
@@ -109,15 +98,12 @@ class UserServiceTest {
 
         //when
         when(userService.findUserByEmail(loginUser.getEmail())).thenReturn(signUpUser);
-        when(
-            passwordEncorder.matches(loginUser.getPassword(), signUpUser.getPassword())).thenReturn(
-            true);
-        when(httpSession.getAttribute("USER_ID")).thenReturn(signUpUser.getId());
+        when(passwordEncorder.matches(loginUser.getPassword(), signUpUser.getPassword())).thenReturn(true);
 
         userService.loginUser(loginUser);
 
         //then
-        assertTrue(userService.checkLogin());
+        verify(httpSession).setAttribute("USER_ID", signUpUser.getId());
     }
 
     @Test

@@ -23,7 +23,7 @@ public class UserService {
     private final String USER_ID = "USER_ID";
 
     @Transactional
-    public void insertUser(SignUpUser user) {
+    public void createUser(SignUpUser user) {
         if (checkEmail(user.getEmail())) {
             throw new DuplicateEmailException("This email already registered.");
         }
@@ -37,7 +37,7 @@ public class UserService {
             .modifyAt(time)
             .disband(false)
             .build();
-        userMapper.createUser(newUser);
+        userMapper.insertUser(newUser);
     }
 
     @Transactional(readOnly = true)
