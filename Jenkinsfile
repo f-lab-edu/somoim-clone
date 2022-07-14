@@ -19,7 +19,7 @@ pipeline {
             branch 'main'
           }
           steps {
-            sh "scp -P 1025 build/libs/*.jar root@210.89.190.215:~/somoim/app/somoim.jar"
+            sh "scp -P ${DEPLOY_SVR_PORT} build/libs/*.jar ${DEPLOY_SVR_HOST}:~/somoim/app/somoim.jar"
           }
         }
 
@@ -29,7 +29,7 @@ pipeline {
             }
             steps {
                 script {
-                  sh "ssh -p 1025 root@210.89.190.215 -T sh < /var/lib/jenkins/deploy.sh"
+                  sh "ssh -p ${DEPLOY_SVR_PORT} ${DEPLOY_SVR_HOST} -T sh < /var/lib/jenkins/deploy.sh"
                 }
             }
         }
