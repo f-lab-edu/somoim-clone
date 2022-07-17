@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.somoim.mapper.AddressMapper">
+  <select id="selectRegionIdByAddressId" parameterType="Integer" resultType="Integer">
+    SELECT region_id
+    FROM address
+    WHERE id = #{addressId}
+  </select>
+
+  <select id="selectAddressString" parameterType="Integer"
+    resultType="com.somoim.model.dao.Address">
+    SELECT sido, sigungu
+    FROM address
+    WHERE id = #{addressId}
+  </select>
+</mapper>

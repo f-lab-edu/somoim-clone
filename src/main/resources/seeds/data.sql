@@ -46,3 +46,15 @@ INSERT INTO somoim.member(id, user_id, group_id, role, create_at, modify_at, dis
 VALUES (4, 4, 1, 'MEMBER', SYSDATE(), SYSDATE(), false); -- user4는 group01의 멤버
 INSERT INTO somoim.member(id, user_id, group_id, role, create_at, modify_at, disband)
 VALUES (5, 5, 2, 'MEMBER', SYSDATE(), SYSDATE(), false); -- user5는 group02의 멤버
+
+-- 주소 sample
+INSERT INTO somoim.address(id, region_id, sido, sigungu, eupmyundong)
+VALUES (1, 1, "서울특별시", "강남구", "수서동");
+INSERT INTO somoim.address(id, region_id, sido, sigungu, eupmyundong)
+VALUES (2, 1, "서울특별시", "강남구", "삼성동");
+INSERT INTO somoim.address(id, region_id, sido, sigungu, eupmyundong)
+VALUES (3, 2, "서울특별시", "성동구", "성수동");
+INSERT INTO somoim.address(id, region_id, sido, sigungu, eupmyundong)
+VALUES (4, 3, "인천광역시", "연수구", "송도동");
+INSERT INTO somoim.address(id, region_id, sido, sigungu, eupmyundong)
+VALUES (5, 4, "경기도", "성남시 분당구", "운중동");

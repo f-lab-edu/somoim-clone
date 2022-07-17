@@ -178,3 +178,15 @@ CREATE TABLE IF NOT EXISTS `somoim`.`comment`
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `somoim`.`address`
+(
+    `id`            INT         NOT NULL AUTO_INCREMENT,
+    `region_id`     INT         NOT NULL,
+    `sido`          VARCHAR(40) NOT NULL,
+    `sigungu`       VARCHAR(40) NOT NULL,
+    `eupmyundong`   VARCHAR(40) NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `ix_sigungu_id` (`region_id`),
+    KEY `ix_address` (`sido`, `sigungu`, `eupmyundong`)
+) ENGINE = InnoDB;
