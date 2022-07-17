@@ -11,26 +11,32 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class GroupServiceTest {
 
-    @InjectMocks
-    GroupService groupService;
+	@InjectMocks
+	GroupService groupService;
 
-    @Mock
-    GroupMapper groupMapper;
+	@Mock
+	AddressService addressService;
 
-    @Test
-    void createGroup() {
+	@Mock
+	GroupMapper groupMapper;
 
-        UpdateGroup updateGroup = new UpdateGroup();
-        updateGroup.setName("testGroup");
-        updateGroup.setCategoryId(1L);
-        updateGroup.setCityCode1(0);
+	@Test
+	void createGroup() {
 
-        groupService.createGroup(updateGroup);
+		UpdateGroup updateGroup = new UpdateGroup();
+		updateGroup.setName("testGroup");
+		updateGroup.setCategoryId(1L);
+		updateGroup.setAddressId(1);
 
-        verify(groupMapper).insertGroup(any(Group.class));
-    }
+		when(addressService.getRegionId(1))
+			.thenReturn(1);
+		groupService.createGroup(updateGroup);
+
+		verify(groupMapper).insertGroup(any(Group.class));
+	}
 }

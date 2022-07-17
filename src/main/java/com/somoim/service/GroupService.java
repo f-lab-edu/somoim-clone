@@ -13,23 +13,25 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class GroupService {
 
-    private final GroupMapper groupMapper;
+	private final AddressService addressService;
 
-    @Transactional
-    public void createGroup(UpdateGroup updateGroup) {
-        LocalDateTime time = LocalDateTime.now();
+	private final GroupMapper groupMapper;
 
-        Group group = Group.builder()
-                .categoryId(updateGroup.getCategoryId())
-                .imageId(updateGroup.getImageId())
-                .cityCode1(updateGroup.getCityCode1())
-                .cityCode2(updateGroup.getCityCode2())
-                .name(updateGroup.getName())
-                .detail(updateGroup.getDetail())
-                .createAt(time)
-                .modifyAt(time)
-                .disband(false)
-                .build();
-        groupMapper.insertGroup(group);
-    }
+	@Transactional
+	public void createGroup(UpdateGroup updateGroup) {
+		LocalDateTime time = LocalDateTime.now();
+
+		Group group = Group.builder()
+			.categoryId(updateGroup.getCategoryId())
+			.imageId(updateGroup.getImageId())
+			.addressId(updateGroup.getAddressId())
+			.regionId(addressService.getRegionId(updateGroup.getAddressId()))
+			.name(updateGroup.getName())
+			.detail(updateGroup.getDetail())
+			.createAt(time)
+			.modifyAt(time)
+			.disband(false)
+			.build();
+		groupMapper.insertGroup(group);
+	}
 }
