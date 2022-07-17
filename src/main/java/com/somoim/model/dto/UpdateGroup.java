@@ -9,13 +9,19 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class UpdateGroup {
-    @NotNull
-    private Long categoryId;
-    private Long imageId;
-    @NotNull
-    private Integer cityCode1;
-    private Integer cityCode2;
-    @NotBlank
-    private String name;
-    private String detail;
+
+	@NotNull
+	private Long categoryId;
+
+	private Long imageId;
+
+	@NotNull
+	private Integer addressId;
+
+	private Integer cityCode2;
+
+	@NotBlank
+	private String name;
+
+	private String detail;
 }
