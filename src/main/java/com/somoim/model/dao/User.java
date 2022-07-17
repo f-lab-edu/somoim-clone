@@ -22,8 +22,8 @@ public class User {
     private String name;
     private String birth;
     private GenderType gender;
-    private Integer cityCode1;
-    private Integer cityCode2;
+    private Integer addressId;
+    private Integer regionId;
     private Long imageId;
     private LocalDateTime createAt;
     private LocalDateTime modifyAt;
