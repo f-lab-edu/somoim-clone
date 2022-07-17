@@ -14,10 +14,15 @@ import lombok.Setter;
 @EqualsAndHashCode
 public class UserProfile {
 
-    private Long id;
-    private String name;
-    private String birth;
-    private GenderType gender;
-    private String address;
-    private String profileImagePath;
+	private Long id;
+
+	private String name;
+
+	private String birth;
+
+	private GenderType gender;
+
+	private String address;
+
+	private String profileImagePath;
 }
