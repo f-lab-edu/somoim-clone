@@ -11,14 +11,23 @@ import java.time.LocalDateTime;
 @Builder
 public class Group {
 
-    private Long id;
-    private Long categoryId;
-    private Long imageId;
-    private Integer cityCode1;
-    private Integer cityCode2;
-    private String name;
-    private String detail;
-    private LocalDateTime createAt;
-    private LocalDateTime modifyAt;
-    private Boolean disband;
+	private Long id;
+
+	private Long categoryId;
+
+	private Long imageId;
+
+	private Integer addressId;
+
+	private Integer regionId;
+
+	private String name;
+
+	private String detail;
+
+	private LocalDateTime createAt;
+
+	private LocalDateTime modifyAt;
+
+	private Boolean disband;
 }

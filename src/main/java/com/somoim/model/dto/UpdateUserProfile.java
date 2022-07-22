@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class UserProfile {
+public class UpdateUserProfile {
 
 	private Long id;
 
@@ -22,7 +22,7 @@ public class UserProfile {
 
 	private GenderType gender;
 
-	private String address;
+	private Integer addressId;
 
 	private String profileImagePath;
 }

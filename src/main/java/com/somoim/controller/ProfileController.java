@@ -1,6 +1,7 @@
 package com.somoim.controller;
 
 import com.somoim.annotation.LoginCheck;
+import com.somoim.model.dto.UpdateUserProfile;
 import com.somoim.model.dto.UserProfile;
 import com.somoim.service.ProfileService;
 import com.somoim.service.UserService;
@@ -31,7 +32,7 @@ public class ProfileController {
 
     @LoginCheck
     @PutMapping
-    public void updateProfile(@RequestBody UserProfile userProfile) {
-        profileService.updateProfile(userProfile);
+    public void updateProfile(@RequestBody UpdateUserProfile updateUserProfile) {
+        profileService.updateProfile(updateUserProfile);
     }
 }

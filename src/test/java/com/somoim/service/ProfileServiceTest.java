@@ -11,6 +11,7 @@ import com.somoim.enumeration.GenderType;
 import com.somoim.exception.NotFoundException;
 import com.somoim.mapper.ProfileMapper;
 import com.somoim.model.dao.User;
+import com.somoim.model.dto.UpdateUserProfile;
 import com.somoim.model.dto.UserProfile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,19 +27,32 @@ public class ProfileServiceTest {
     ProfileService profileService;
 
     @Mock
+    AddressService addressService;
+
+    @Mock
     ProfileMapper profileMapper;
 
+    UpdateUserProfile updateUserProfile;
     UserProfile userProfile;
     User user;
 
     @BeforeEach
     void setUp() {
+        updateUserProfile = UpdateUserProfile.builder()
+            .id(1L)
+            .name("test01")
+            .birth("2000-01-01")
+            .gender(GenderType.M)
+            .addressId(1)
+            .profileImagePath("")
+            .build();
+
         userProfile = UserProfile.builder()
             .id(1L)
             .name("test01")
             .birth("2000-01-01")
             .gender(GenderType.M)
-            .address("서울시 강남구")
+            .address("서울특별시 강남구")
             .profileImagePath("")
             .build();
 
@@ -47,15 +61,15 @@ public class ProfileServiceTest {
             .name("test01")
             .birth("2000-01-01")
             .gender(GenderType.M)
-            .cityCode1(0)
-            .cityCode2(0)
+            .addressId(1)
+            .regionId(1)
             .imageId(0L)
             .build();
     }
 
     @Test
     void updateProfileTest() {
-        profileService.updateProfile(userProfile);
+        profileService.updateProfile(updateUserProfile);
         verify(profileMapper).updateProfile(any(User.class));
     }
 
@@ -63,6 +77,8 @@ public class ProfileServiceTest {
     void getUserProfileTest() {
         when(profileMapper.getProfile(1L))
             .thenReturn(user);
+        when(addressService.getAddress(1))
+            .thenReturn("서울특별시 강남구");
         UserProfile testProfile = profileService.getUserProfile(1L);
         assertThat(testProfile, is(equalTo(userProfile)));
     }
